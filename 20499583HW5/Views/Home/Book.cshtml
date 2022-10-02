@@ -1,0 +1,124 @@
+﻿@model IEnumerable<_20499583HW5.Models.Book>
+
+@{
+    ViewBag.Title = "Book";
+}
+
+<h2>Book</h2>
+
+<p>
+    <div class="row">
+        <table class="table">
+            <tr>
+
+                <td>
+
+                    <input class="form-control" type="text" placeholder="Search Book Name" />
+                </td>
+                <td>
+                    <select class="form-control">
+                        <option value="" disabled selected hidden>Select a Type </option>
+                        @foreach (var item in Model)
+                        {
+                            <option value="@item.Types"> @item.Types</option>
+                        }
+                    </select>
+                </td>
+
+                <td>
+                    
+                    <select class="form-control">
+                        <option value="" disabled selected hidden> Select a Author</option>
+                        @foreach (var item in Model)
+                        {
+                    <option value="@item.Author"> @item.Author</option>
+                        }
+
+
+                    </select>
+                </td>
+                <td>
+                    <input type="submit" value="Search" class="btn btn-success" id="btnSearch"/>
+                </td>
+                <td>
+                    <input type="reset" value="Clear" class="btn btn-danger" id="btnClear"/>
+                </td>
+
+            </tr>
+
+
+
+        </table>
+        </div>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.BookID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Author)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Types)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PageCount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Point)
+        </th>
+        <th>
+            Status
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.BookID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Author)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Types)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PageCount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Point)
+            </td>
+            @{
+                if (item.Borrow.BookStaus == "Out")
+                {
+                    <td style="color:red;">@Html.DisplayFor(modelItem => item.Borrow.BookStaus) </td>
+                }
+                else
+                {
+                    <td style="color:green;">@Html.DisplayFor(modelItem => item.Borrow.BookStaus) </td>
+                }
+            }
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.Borrow.BookStaus)
+                </td>*@
+            <td>
+
+                @Html.ActionLink("View", "Borrows", new { id = item.BookID }, new { @class = "btn btn-primary" })
+
+            </td>
+        </tr>
+                
+     }
+
+
+</table>
